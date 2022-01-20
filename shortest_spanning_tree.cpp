@@ -156,10 +156,10 @@ int SPT_Dijkstra(
 	//    should be small as possible (think a way to make it small)
 ) {
 	int treeCost = 0;
-	// *** ÀÌ ÇÔ¼ö¸¦ ÀÛ¼ºÇÏÀÚ ***
-	// ¹İµå½Ã min-heapÀ» »ç¿ëÇÏ¿© O((n+m)logn) ¾Ë°í¸®ÁòÀ» ±¸ÇöÇØ¾ß ÇÑ´Ù(¾Æ´Ï¸é trivialÇÑ ÇÁ·Î±×·¥ÀÓ)
-	// heap ¿¬»ê µî ÇÊ¿äÇÑ ÇÔ¼ö´Â ÀÚÀ¯·Ó°Ô ÀÛ¼ºÇÏ¿© Ãß°¡ÇÑ´Ù.
-	// ±×·¯³ª global º¯¼ö, dynamic array µîÀº Ãß°¡·Î »ç¿ëÇÏÁö ¾Ê´Â´Ù(½ÇÁ¦·Î ÇÊ¿ä ¾ø´Ù)
+	// *** ì´ í•¨ìˆ˜ë¥¼ ì‘ì„±í•˜ì ***
+	// ë°˜ë“œì‹œ min-heapì„ ì‚¬ìš©í•˜ì—¬ O((n+m)logn) ì•Œê³ ë¦¬ì¦˜ì„ êµ¬í˜„í•´ì•¼ í•œë‹¤(ì•„ë‹ˆë©´ trivialí•œ í”„ë¡œê·¸ë¨ì„)
+	// heap ì—°ì‚° ë“± í•„ìš”í•œ í•¨ìˆ˜ëŠ” ììœ ë¡­ê²Œ ì‘ì„±í•˜ì—¬ ì¶”ê°€í•œë‹¤.
+	// ê·¸ëŸ¬ë‚˜ global ë³€ìˆ˜, dynamic array ë“±ì€ ì¶”ê°€ë¡œ ì‚¬ìš©í•˜ì§€ ì•ŠëŠ”ë‹¤(ì‹¤ì œë¡œ í•„ìš” ì—†ë‹¤)
 	
 	int len_heap = 0;
 	// initialize src vertex 
@@ -194,7 +194,7 @@ int SPT_Dijkstra(
 		// front
 		for (cur = V[u].f_hd; cur != NONE; cur = E[cur].fp) {
 			w = E[cur].vr;
-			// distance ¼öÁ¤ => minHeap ÀçÁ¤·Ä
+			// distance ìˆ˜ì • => minHeap ì¬ì •ë ¬
 			if (V[w].inS == false && (V[u].distance + E[cur].cost) < V[w].distance) {
 				V[w].distance = V[u].distance + E[cur].cost;
 				move_up(V, w, minHeap, &len_heap);
@@ -204,7 +204,7 @@ int SPT_Dijkstra(
 		for (cur = V[u].r_hd; cur != NONE; cur = E[cur].rp) {
 			w = E[cur].vf;
 			if (V[w].inS == false && (V[u].distance + E[cur].cost) < V[w].distance) {
-				// distance ¼öÁ¤ => minHeap ÀçÁ¤·Ä
+				// distance ìˆ˜ì • => minHeap ì¬ì •ë ¬
 				V[w].distance = V[u].distance + E[cur].cost;
 				move_up(V, w, minHeap, &len_heap);
 			}
@@ -251,20 +251,20 @@ int SPT_Dijkstra(
 }
 
 void Read_Graph(int Vnum, vertex *V, int Enum, edge *E) {
-	// Graph ÀÚ·á±¸Á¶¸¦ ¸¸µå´Â ÇÔ¼ö
-	// *** ÀÌ ÇÔ¼ö¸¦ Ãß°¡ÇÏÀÚ ***
-	// PHW02ÀÇ Read_Graph_adj_array()¸¦ ÀÌ °úÁ¦ÀÇ ÀÚ·á±¸Á¶¿¡ ¸ÂÃç »ìÂ¦ ¼öÁ¤ÇÏ¿© »ç¿ëÇÑ´Ù
-	// Áï, Read_Graph_adj_array()¿¡¼­ ºÒÇÊ¿äÇÑ ³»¿ëÀ» Á¦°ÅÇÑ ÈÄ »ç¿ë.
+	// Graph ìë£Œêµ¬ì¡°ë¥¼ ë§Œë“œëŠ” í•¨ìˆ˜
+	// *** ì´ í•¨ìˆ˜ë¥¼ ì¶”ê°€í•˜ì ***
+	// PHW02ì˜ Read_Graph_adj_array()ë¥¼ ì´ ê³¼ì œì˜ ìë£Œêµ¬ì¡°ì— ë§ì¶° ì‚´ì§ ìˆ˜ì •í•˜ì—¬ ì‚¬ìš©í•œë‹¤
+	// ì¦‰, Read_Graph_adj_array()ì—ì„œ ë¶ˆí•„ìš”í•œ ë‚´ìš©ì„ ì œê±°í•œ í›„ ì‚¬ìš©.
 	
 	int i, vi, vj, cost;
 	
-	for (i = 0; i < Vnum; i++) { // vertex ÃÊ±âÈ­
+	for (i = 0; i < Vnum; i++) { // vertex ì´ˆê¸°í™”
 		V[i].distance = INF;
 		V[i].inS = false;
 		V[i].f_hd = NONE;
 		V[i].r_hd = NONE;
 	}
-	for (i = 0; i < Enum; i++) { // edge ÃÊ±âÈ­
+	for (i = 0; i < Enum; i++) { // edge ì´ˆê¸°í™”
 		E[i].cost = -1;
 		E[i].flag = false;
 		E[i].vf = NONE;
@@ -273,18 +273,18 @@ void Read_Graph(int Vnum, vertex *V, int Enum, edge *E) {
 		E[i].fp = NONE;
 	}
 	for (i = 0; i < Enum; i++) {
-		scanf("%d %d %d", &vi, &vj, &cost); // °¢ ÁÙ ¸¶´Ù edge Á¤º¸¸¦ ÀĞ¾î¿Â´Ù
+		scanf("%d %d %d", &vi, &vj, &cost); // ê° ì¤„ ë§ˆë‹¤ edge ì •ë³´ë¥¼ ì½ì–´ì˜¨ë‹¤
 		E[i].vf = vi;
 		E[i].vr = vj;
 		E[i].cost = cost;
 
 
-		if (V[vi].f_hd != NONE) // vi ÀÚ¸®(f_hdÈ®ÀÎ)ÀÇ vertex °¡ ºñ¾îÀÖÁö ¾ÊÀ¸¸é edge¿¡ ÀúÀåÇØ¾ßÇÑ´Ù
+		if (V[vi].f_hd != NONE) // vi ìë¦¬(f_hdí™•ì¸)ì˜ vertex ê°€ ë¹„ì–´ìˆì§€ ì•Šìœ¼ë©´ edgeì— ì €ì¥í•´ì•¼í•œë‹¤
 			E[i].fp = V[vi].f_hd;
 		V[vi].f_hd = i;
 
 
-		if (V[vj].r_hd != NONE) // À§ÀÇ ÀÛ¾÷À» vj¿¡ ´ëÇØ¼­µµ µ¿ÀÏÇÏ±â ¼öÇà(r_hd È®ÀÎ)
+		if (V[vj].r_hd != NONE) // ìœ„ì˜ ì‘ì—…ì„ vjì— ëŒ€í•´ì„œë„ ë™ì¼í•˜ê¸° ìˆ˜í–‰(r_hd í™•ì¸)
 			E[i].rp = V[vj].r_hd;
 		V[vj].r_hd = i;
 
@@ -330,8 +330,8 @@ int main ( void ) {
 		/**/finish = clock();	// stop timer
 		cmpt = ((double)(finish - start)) / (double)CLK_TCK;
 
-		// ¾Æ·¡ Tree_Check¿Í SPT_test ÇÔ¼ö´Â Ã·ºÎÇÑ SPT_test.obj ÆÄÀÏ¿¡ ÀÖ´Ù.
-		// ÀÌ Å×½ºÆ®¿¡¼­ ¿À·ù·Î ÀÎÇÏ¿© ÇÁ·Î±×·¥ÀÌ Á¤ÁöÇÏ¸é ¹º°¡ Àß¸øµÈ °ÍÀÌ´Ù(Á¦ÃâÇØµµ 0Á¡)
+		// ì•„ë˜ Tree_Checkì™€ SPT_test í•¨ìˆ˜ëŠ” ì²¨ë¶€í•œ SPT_test.obj íŒŒì¼ì— ìˆë‹¤.
+		// ì´ í…ŒìŠ¤íŠ¸ì—ì„œ ì˜¤ë¥˜ë¡œ ì¸í•˜ì—¬ í”„ë¡œê·¸ë¨ì´ ì •ì§€í•˜ë©´ ë­”ê°€ ì˜ëª»ëœ ê²ƒì´ë‹¤(ì œì¶œí•´ë„ 0ì )
         if (Tree_Check(Vnum, V, Enum, E, minHeap) == 0) {
 			Error_Exit("   ERROR The result is not a spanning tree");
 		}
