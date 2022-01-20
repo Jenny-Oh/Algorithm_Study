@@ -4,7 +4,7 @@
 
 
 
-int minimum(int a, int b, int c) { // 3°³ÀÇ Á¤¼ö Áß ÃÖ¼Ú°ª ±¸ÇÏ±â
+int minimum(int a, int b, int c) { // 3ê°œì˜ ì •ìˆ˜ ì¤‘ ìµœì†Ÿê°’ êµ¬í•˜ê¸°
 	int tmp = a < b ? a : b;
 	return tmp < c ? tmp : c;
 }
@@ -27,41 +27,41 @@ char** TR,       // Edited string with deletion form S mark '*'
 ) {
 
 	int i, j, min;
-	int ssize = strlen(SS) +1; // SS ±æÀÌ + 1 => Table row
-	int tsize = strlen(TS) +1; // TS ±æÀÌ + 1 => Table column
+	int ssize = strlen(SS) +1; // SS ê¸¸ì´ + 1 => Table row
+	int tsize = strlen(TS) +1; // TS ê¸¸ì´ + 1 => Table column
 	
-	// Table ¸Ş¸ğ¸®´Â main¿¡¼­ ÀÌ¹Ì ÇÒ´çµÊ.
-	// Table cost ÃÊ±âÈ­
+	// Table ë©”ëª¨ë¦¬ëŠ” mainì—ì„œ ì´ë¯¸ í• ë‹¹ë¨.
+	// Table cost ì´ˆê¸°í™”
 	Table[0][0] = 0;
-	for (j = 1; j < tsize; j++) { // TS ÀÔÀå¿¡¼­´Â ¹®ÀÚ¸¦ ³Ö¾î¾ßÇÏ¹Ç·Î 
+	for (j = 1; j < tsize; j++) { // TS ì…ì¥ì—ì„œëŠ” ë¬¸ìë¥¼ ë„£ì–´ì•¼í•˜ë¯€ë¡œ 
 		Table[0][j] = Table[0][j-1] + ins_cost;
 	}
-	for (i = 1; i < ssize; i++) { // SS ÀÔÀå¿¡¼­´Â ¹®ÀÚ¸¦ »©¾ßÇÏ¹Ç·Î
+	for (i = 1; i < ssize; i++) { // SS ì…ì¥ì—ì„œëŠ” ë¬¸ìë¥¼ ë¹¼ì•¼í•˜ë¯€ë¡œ
 		Table[i][0] = Table[i - 1][0] + del_cost;
 	}
 
 	
 
-	// Table cost °è»ê
+	// Table cost ê³„ì‚°
 	for (i = 1; i < ssize; i++) {
 		for (j = 1; j < tsize; j++) {
-			if (SS[i - 1] == TS[j - 1]) // ÇØ´ç ¹®ÀÚ°¡ µ¿ÀÏÇÒ¶§
-				Table[i][j] = Table[i - 1][j - 1]; // ´ë°¢¼±ÀÇ cost¿Í µ¿ÀÏ
-			else { // ´Ù¸£´Ù¸é ¿ŞÂÊ, ¿ŞÂÊ À§(´ë°¢¼±), À§ÂÊ Áß¿¡ ÃÖ¼Ú°ª Ã£±â
+			if (SS[i - 1] == TS[j - 1]) // í•´ë‹¹ ë¬¸ìê°€ ë™ì¼í• ë•Œ
+				Table[i][j] = Table[i - 1][j - 1]; // ëŒ€ê°ì„ ì˜ costì™€ ë™ì¼
+			else { // ë‹¤ë¥´ë‹¤ë©´ ì™¼ìª½, ì™¼ìª½ ìœ„(ëŒ€ê°ì„ ), ìœ„ìª½ ì¤‘ì— ìµœì†Ÿê°’ ì°¾ê¸°
 				min = minimum(Table[i - 1][j - 1] + sub_cost, Table[i][j - 1] + ins_cost, Table[i - 1][j]+del_cost);
 				Table[i][j] = min;
 			}
 		}
 	}
 
-	// ¿ªÃßÀûÀ» ÅëÇØ  S , T, OP ±æÀÌ ±¸ÇÏ±â
+	// ì—­ì¶”ì ì„ í†µí•´  S , T, OP ê¸¸ì´ êµ¬í•˜ê¸°
 	int op_len = 0;
-	// ¸Ç ¿À¸¥ÂÊ ¾Æ·¡ÀÇ ÀÎµ¦½ººÎÅÍ ÃßÀû½ÃÀÛ
+	// ë§¨ ì˜¤ë¥¸ìª½ ì•„ë˜ì˜ ì¸ë±ìŠ¤ë¶€í„° ì¶”ì ì‹œì‘
 	i = ssize - 1; j = tsize - 1;
 	
 	
-	int current = 0; // ÇöÀç Table °ª ÀúÀåÇÏ´Â º¯¼ö
-	int sub, del, ins; // ¼Â Áß¿¡ ¾î¶² ÀÛ¾÷À» ¼öÇàÇØ¾ßÇÏ´ÂÁö ¾Ë·ÁÁÖ´Â ÇÃ·¡±× 
+	int current = 0; // í˜„ì¬ Table ê°’ ì €ì¥í•˜ëŠ” ë³€ìˆ˜
+	int sub, del, ins; // ì…‹ ì¤‘ì— ì–´ë–¤ ì‘ì—…ì„ ìˆ˜í–‰í•´ì•¼í•˜ëŠ”ì§€ ì•Œë ¤ì£¼ëŠ” í”Œë˜ê·¸ 
 
 	while (true) {
 		current = Table[i][j];
@@ -77,7 +77,7 @@ char** TR,       // Edited string with deletion form S mark '*'
 			}
 		}
 		if (i >= 1 && j >= 1) {
-			// substitution & ±×´ë·Î => operation ±æÀÌ¸¦ ¼¼´Â µ¥ ±¸ºĞÇÒ ÇÊ¿ä ¾ø´Ù
+			// substitution & ê·¸ëŒ€ë¡œ => operation ê¸¸ì´ë¥¼ ì„¸ëŠ” ë° êµ¬ë¶„í•  í•„ìš” ì—†ë‹¤
 			if (current == Table[i - 1][j - 1] + sub_cost || SS[i - 1] == TS[j - 1]) { 
 				sub = 1;
 			}
@@ -99,13 +99,13 @@ char** TR,       // Edited string with deletion form S mark '*'
 		else if (ins == 1) { // insertion
 			j -= 1;
 		}
-		else { // substitution & ±×´ë·Î 
+		else { // substitution & ê·¸ëŒ€ë¡œ 
 			i -= 1; j -= 1;
 		}
 			
 	
 		op_len++;
-		if (i <= 0 && j <= 0) break; // ´õÀÌ»ó ºñ±³ÇÒ¼ö ÀÖ´Â ÀÎµ¦½º°¡ ¾ø´Ù
+		if (i <= 0 && j <= 0) break; // ë”ì´ìƒ ë¹„êµí• ìˆ˜ ìˆëŠ” ì¸ë±ìŠ¤ê°€ ì—†ë‹¤
 	
 	}
 
@@ -114,28 +114,28 @@ char** TR,       // Edited string with deletion form S mark '*'
 	
 	
 
-	// ¿ªÃßÀûÀ» ÅëÇØ i , d, s ÀÛ¼º
+	// ì—­ì¶”ì ì„ í†µí•´ i , d, s ì‘ì„±
 
-	// ±¸ÇÑ ±æÀÌ ¸¸Å­ output string ±æÀÌ malloc
+	// êµ¬í•œ ê¸¸ì´ ë§Œí¼ output string ê¸¸ì´ malloc
 	op_len += 1;
 	(*SR) = (char*)malloc(sizeof(char) * op_len);
 	(*OP) = (char*)malloc(sizeof(char) * op_len);
 	(*TR) = (char*)malloc(sizeof(char) * op_len);
 
-	// allocation ÇÑ SR, OP, TR Å©±â ÇÕ
+	// allocation í•œ SR, OP, TR í¬ê¸° í•©
 	*Mem_Allocated = sizeof(char) * (op_len) * 3;
 
-	// ¹®ÀÚ¿­ÀÇ ³¡Àº null
+	// ë¬¸ìì—´ì˜ ëì€ null
 	op_len--;
 	(*SR)[op_len] = '\0'; 
 	(*OP)[op_len] = '\0'; 
 	(*TR)[op_len] = '\0';
 
 
-	// output string µÚ¿¡¼­ ºÎÅÍ operation ¿ªÃßÀû
-	// ¸Ç ¿À¸¥ÂÊ ¹Ø¿¡¼­ ½ÃÀÛ => back tracking
+	// output string ë’¤ì—ì„œ ë¶€í„° operation ì—­ì¶”ì 
+	// ë§¨ ì˜¤ë¥¸ìª½ ë°‘ì—ì„œ ì‹œì‘ => back tracking
 	i = ssize - 1; j = tsize - 1;
-	int idx = op_len-1; // ÇöÀç ¹®ÀÚ¿­ À§Ä¡
+	int idx = op_len-1; // í˜„ì¬ ë¬¸ìì—´ ìœ„ì¹˜
 	
 	while (op_len >= 1 && idx >=0) { 
 			if (i < 0 || j < 0) break;
@@ -152,7 +152,7 @@ char** TR,       // Edited string with deletion form S mark '*'
 				}
 			}
 			if (i >= 1 && j >= 1) {
-				if (SS[i - 1] == TS[j - 1]) { // ±×´ë·Î
+				if (SS[i - 1] == TS[j - 1]) { // ê·¸ëŒ€ë¡œ
 					(*SR)[idx] = SS[i - 1];
 					(*TR)[idx] = TS[j - 1];
 					(*OP)[idx] = '.';
@@ -168,10 +168,10 @@ char** TR,       // Edited string with deletion form S mark '*'
 			}
 
 			if (del == 1 && ins == 1) { // compare del and ins
-				if (del_cost < ins_cost) { // del·Î ¼±ÅÃ
+				if (del_cost < ins_cost) { // delë¡œ ì„ íƒ
 					del = 1; ins = 0;
 				}
-				else { // ins·Î ¼±ÅÃ
+				else { // insë¡œ ì„ íƒ
 					ins = 1; del = 0;
 				}
 
