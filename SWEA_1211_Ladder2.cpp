@@ -1,3 +1,8 @@
+/* 
+	DFS + ìµœì†Œ ê²½ë¡œ ì°¾ê¸° 
+
+*/
+
 #include<stdio.h>
 #include<string.h>
 
@@ -7,20 +12,20 @@
 int min, start;
 int ladder[MAX][MAX];
 int visit[MAX][MAX];
-int dir[3][2] = {{1,0},{0,-1},{0,1} }; // ÇÏÁÂ¿ì 
-int cur; // °æ·Î È½¼ö
-int flag; //  ³¡±îÁö µµÂø¿©ºÎ
+int dir[3][2] = {{1,0},{0,-1},{0,1} }; // í•˜ì¢Œìš° 
+int cur; // ê²½ë¡œ íšŸìˆ˜
+int flag; //  ëê¹Œì§€ ë„ì°©ì—¬ë¶€
 
 void DFS(int row, int col) {
 	//printf("row = %d col = %d \n", row, col);
 	visit[row][col] = 1;
 	if (row == (MAX - 1)) { 
-		flag = 1; //  ³¡±îÁö µµÂø
+		flag = 1; //  ëê¹Œì§€ ë„ì°©
 		return;
 	}
 	else {
 		
-		// ÁÂ¿ì ¿ì¼± Å½»ö
+		// ì¢Œìš° ìš°ì„  íƒìƒ‰
 		int next_x, next_y;
 		for (int i = 2; i >= 0; i--) {
 			next_x = row + dir[i][0];
@@ -32,7 +37,7 @@ void DFS(int row, int col) {
 				}
 			}
 		}
-		cur++; // °æ·Î È½¼ö 
+		cur++; // ê²½ë¡œ íšŸìˆ˜ 
 		DFS(next_x, next_y);
 	}
 
@@ -50,7 +55,7 @@ int main() {
 
 		//printf("test %d\n",test);
 		
-		// ¹Ì·ÎÃ¤¿ì±â
+		// ë¯¸ë¡œì±„ìš°ê¸°
 		char buf;
 		
 		for (int i = 0; i < MAX; i++) {
@@ -61,15 +66,15 @@ int main() {
 		}
 			
 		
-		min = MAX*MAX; // ÃÖ¼Ú°ª ÃÊ±âÈ­
+		min = MAX*MAX; // ìµœì†Ÿê°’ ì´ˆê¸°í™”
 		for (int j = 0; j < MAX; j++) {
 			
 			if (ladder[0][j]) {
-				// visit ¹è¿­ ÃÊ±âÈ­
+				// visit ë°°ì—´ ì´ˆê¸°í™”
 				for (int i = 0; i < MAX; i++)
 					for (int j = 0; j < MAX; j++)
 						visit[i][j] = 0;
-				cur = 0; flag = 0; // ÃÊ±âÈ­
+				cur = 0; flag = 0; // ì´ˆê¸°í™”
 				DFS(0, j);
 				
 				//printf("flag = %d cur = %d min = %d \n", flag, cur, min);
