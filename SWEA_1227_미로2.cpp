@@ -1,10 +1,14 @@
-#include<stdio.h>
+/* 
+	DFS ë¡œ ê°€ëŠ¥í•œ ë¯¸ë¡œì¸ì§€ í™•ì¸
+*/
 
+#include<stdio.h>
 #define MAX 100
+
 
 int maze[100][100];
 int dest_x, dest_y;
-int dir[4][2] = { {-1,0},{1,0},{0,-1},{0,1} }; // »óÇÏÁÂ¿ì 
+int dir[4][2] = { {-1,0},{1,0},{0,-1},{0,1} }; // ìƒí•˜ì¢Œìš° 
 int ans;
 
 void DFS(int x, int y) {
@@ -45,7 +49,7 @@ int main() {
 		int start_x, start_y;
 		//printf("test = %d \n", test);
 		char s[101];
-		// ¹Ì·Î °ª Ã¤¿ì±â
+		// ë¯¸ë¡œ ê°’ ì±„ìš°ê¸°
 		for (int i = 0; i < MAX; i++) {
 			scanf("%s", s);
 			for (int j = 0; j < MAX; j++) {
@@ -68,7 +72,7 @@ int main() {
 			//printf("\n");
 		}
 		
-		ans = 0; // Á¤´ä ÃÊ±âÈ­
+		ans = 0; // ì •ë‹µ ì´ˆê¸°í™”
 		DFS(start_x, start_y);
 		
 		printf("#%d %d\n", test, ans);
