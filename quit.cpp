@@ -1,12 +1,20 @@
 #include <iostream>
 #include <vector>
 using namespace std;
+
+/* 
+    백준 삼성 기출 - 퇴사
+    DP로 해결하여 풀었다.
+    메모리 : 2020KB
+    시간 : 0ms
+    코드 길이 : 761B
+*/
 int N;
 int pMax = -1;
 
 struct session {
-    int t;
-    int p;
+    int t; // 며칠걸리는지
+    int p; // 얼마 받는지
 };
 
 vector<session> s;
