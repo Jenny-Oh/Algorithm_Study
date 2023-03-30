@@ -1,9 +1,15 @@
 #include<stdio.h>
 #include<math.h>
+/* 
+    메모리 1300kb
+    시간 0ms
+    코드 길이 2490b
+*/
 
 int gears[4][8];
 // N극은 0, S극은 1
 
+// 점수 계산
 int calScore(){
     int score = 0;
     for(int i=0; i<4; i++){
@@ -14,6 +20,7 @@ int calScore(){
     return score;
 }
 
+// 앞에서 정한 방향 그대로 나머지 애들 정하기 
 void clockGear(int idx, int D){
     if (D == 1){ // clockwise
         int tmp = gears[idx][7];
@@ -38,6 +45,7 @@ void clockGear(int idx, int D){
     */
 }
 
+// 톱니 방향 결정 
 void moveGear(int N, int D){ 
     int clocks[4] = {0,};
     if(N == 0){ // 0 -> 1 -> 2 -> 3
