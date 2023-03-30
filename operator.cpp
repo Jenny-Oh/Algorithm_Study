@@ -7,6 +7,18 @@ int rMin = 1000000001;
 int numer[11];
 int oper[4];
 
+/* 
+    백준 삼성 기출 - 연산자 끼워넣기
+    
+    연산자 순서가 다른 모든 경우의 수를 계산해야했기 때문에 dp로 탐색
+    
+    
+    메모리 2020kb
+    시간 0ms
+    코드길이 1261b
+   
+*/
+
 int solution(int result, int idx){
     if (idx == N){
         if(result > rMax){
