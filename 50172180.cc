@@ -1,7 +1,14 @@
 #include<iostream>
 #include<queue>
 using namespace std;
-
+/* 
+    연구소
+    
+    
+    메모리 2024 kb
+    시간 240 ms
+    코드길이 2484b
+*/
 int N,M;
 int matrix[8][8];
 int mat2[8][8];
@@ -50,6 +57,7 @@ void bfs(){
     return;
 }
 
+// 벽 2개 더 세우기
 void setWalls(int walls){
     //printf("wall = %d \n", walls);
     if(walls == 3){
@@ -66,7 +74,7 @@ void setWalls(int walls){
         return;
 
     }
-    else if(walls < 3){
+    else if(walls < 3){ 
         for(int i=0; i<N; i++){
             for(int j=0; j<M; j++){
                 //printf("%d ",mat2[i][j]);
@@ -95,7 +103,8 @@ int main() {
     maxSafety = 0;
     for (int i=0; i<N; i++){
         for (int j=0; j<M; j++){
-            if(matrix[i][j]  == 0){
+            if(matrix[i][j]  == 0){ 
+            // 벽 하나 세움 -> setWalls로 두개 더 세우기 
                 matrix[i][j] = 1;
                 setWalls(1);
                 matrix[i][j] = 0;
